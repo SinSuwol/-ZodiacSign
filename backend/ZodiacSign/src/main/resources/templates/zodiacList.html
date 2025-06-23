@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>별자리 목록</title>
+</head>
+<body>
+  <h2>별자리 목록</h2>
+  <table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+      <th>이름</th>
+      <th>생일</th>
+      <th>수정</th>
+    </tr>
+    <tr th:each="z : ${zodiacs}">
+      <td th:text="${z.name}"></td>
+      <td th:text="${z.birthDate}"></td>
+      <td><a th:href="@{'/zodiac/edit/' + ${z.id}}">수정</a></td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,17 +1,124 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Index</title>
+  <meta charset="UTF-8">
+  <title>나의 별자리</title>
+  <style>
+    body {
+      font-family: 'SUIT', 'Noto Sans KR', sans-serif;
+      background: #FFF8F0;
+      color: #333;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    form {
+      margin-bottom: 30px;
+    }
+
+    /* 히든 관리자 트리거: 오른쪽 상단 */
+    #hidden-admin-trigger {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    /* 모달 배경 */
+    .modal-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    /* 모달 내용 박스 */
+    .modal-content {
+      background: #1e1e2f;
+      color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 280px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .modal-content input[type="password"] {
+      padding: 8px;
+      width: 100%;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 20px;
+    }
+
+    .modal-content button {
+      padding: 8px 16px;
+      border: none;
+      background: #ff7043;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background: #ffa07a;
+    }
+  </style>
 </head>
 <body>
-<h1>나의 별자리는?</h1>
-<form action="/regZodiac" method="post">
-	<label for="birthDate">생년월일로 별자리 알아보기</label>
-	<input type="date" name="birthDate">
-	<br><br>
-	<button type="submit">확인</button>
-</form>
+  <h1>나의 별자리는?</h1>
 
+  <form action="/regZodiac" method="post">
+    <label for="birthDate">생년월일로 별자리 알아보기</label><br><br>
+    <input type="date" name="birthDate" required>
+    <br><br>
+    <button type="submit">확인</button>
+  </form>
+
+  <!-- 오른쪽 상단 히든 영역 -->
+  <div id="hidden-admin-trigger" title=" "></div>
+
+  <!-- 관리자 비밀번호 입력 모달 -->
+  <div id="admin-modal" class="modal-bg">
+    <div class="modal-content">
+      <h2>🔒 관리자 로그인</h2>
+      <form action="/auth" method="post">
+        <input type="password" name="adminPw" placeholder="비밀번호 입력" required />
+        <br>
+        <button type="submit">확인</button>
+        <button type="button" onclick="closeModal()">닫기</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let clickCount = 0;
+    const trigger = document.getElementById('hidden-admin-trigger');
+    const modal = document.getElementById('admin-modal');
+
+    trigger.addEventListener('click', () => {
+      clickCount++;
+      if (clickCount === 3) {
+        modal.style.display = 'flex';
+      }
+      setTimeout(() => clickCount = 0, 2000);
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+  </script>
 </body>
 </html>

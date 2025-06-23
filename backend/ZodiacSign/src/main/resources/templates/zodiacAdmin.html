@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>별자리 목록</title>
+  <style>
+    body {
+      font-family: 'SUIT', 'Noto Sans KR', sans-serif;
+      background: #FFF8F0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    table {
+      width: 80%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #FF7043;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f2f2f2;
+    }
+
+    .btn {
+      padding: 5px 10px;
+      background-color: #FF7043;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: #FF8A65;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>별자리 목록 (관리자)</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>이름</th>
+        <th>생일</th>
+        <th>이미지</th>
+        <th>설명</th>
+        <th>수정</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="z : ${zodiacs}">
+        <td th:text="${z.name}">이름</td>
+        <td th:text="${z.birthDate}">생일</td>
+        <td><img th:src="${z.imageUrl}" alt="이미지" width="50"></td>
+        <td th:text="${z.description}">설명</td>
+        <td>
+          <a th:href="@{/zodiac/edit/{id}(id=${z.id})}" class="btn">수정</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

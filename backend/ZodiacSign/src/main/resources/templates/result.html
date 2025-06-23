@@ -6,8 +6,9 @@
 </head>
 <body>
 <h1>당신의 별자리는?</h1>
-<img th:src="@{'/images/}">
+<img th:src="@{'/images/' + ${zodiac.imageUrl}}" alt="별자리">
 <p th:text="${zodiac.name}"></p>
-
+<br><br>
+<a href="/zodiacForm">다시하기</a>
 </body>
 </html>
